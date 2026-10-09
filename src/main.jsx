@@ -65,7 +65,7 @@ const techIcons = {
 };
 
 
-function CompanyCard({ company, open, onExpand, onCollapse, onToggle }) {
+function CompanyCard({ company, open, onExpand, onCollapse }) {
   return (
     <article className={`company${open ? ' is-expanded' : ''}`}
       onPointerEnter={event => { if (event.pointerType === 'mouse') onExpand(); }}
@@ -75,7 +75,7 @@ function CompanyCard({ company, open, onExpand, onCollapse, onToggle }) {
       <div className={`logo-container ${company.className}`}><img src={`/logos/${company.logo}`} alt={company.name} width="220" height="90" loading="lazy" /></div>
       <h3>{company.name}</h3>
       <p className="role">{company.role}</p>
-      <button className="company-toggle" aria-expanded={open} aria-controls={`intro-${company.className}`} onClick={onToggle} onFocus={event => { if (event.target.matches(':focus-visible')) onExpand(); }}>About {company.name}<span aria-hidden="true">{open ? '−' : '+'}</span></button>
+      <button className="company-toggle" aria-expanded={open} aria-controls={`intro-${company.className}`} onClick={onExpand} onFocus={event => { if (event.target.matches(':focus-visible')) onExpand(); }}>About {company.name}</button>
       <div id={`intro-${company.className}`} className="company-intro" inert={!open} aria-hidden={!open}><p>{company.intro}</p><a href={company.url} target="_blank" rel="noreferrer">Visit company website</a></div>
     </article>
   );
@@ -125,7 +125,7 @@ function App() {
           <div className="section-top"><p className="eyebrow">01 / EXPERIENCE</p><span className="section-line" /></div>
           <div className="section-heading"><h2 id="experience-title">Where I’ve<br /><span>been building.</span></h2><p>A little startup energy. A little enterprise scale.<br />A lot of learning along the way.</p></div>
           <div className="companies" style={{ gridTemplateColumns: companyColumns }}>{companies.map(company => (
-            <CompanyCard company={company} key={company.name} open={activeCompany === company.className} onExpand={() => setActiveCompany(company.className)} onCollapse={() => setActiveCompany(current => current === company.className ? null : current)} onToggle={() => setActiveCompany(current => current === company.className ? null : company.className)} />
+            <CompanyCard company={company} key={company.name} open={activeCompany === company.className} onExpand={() => setActiveCompany(company.className)} onCollapse={() => setActiveCompany(current => current === company.className ? null : current)} />
           ))}</div>
           <div className="education"><img src="/logos/waterloo.png" alt="University of Waterloo" width="280" height="112" loading="lazy" /><div><h3>University of Waterloo</h3><p>Honours Bachelor of Computer Science, Co-op</p></div></div>
         </section>
