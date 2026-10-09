@@ -127,6 +127,7 @@ function App() {
               <p>A mobile side project I built with a group. Pick-pic brings shared photo collections and swipe-based voting together.</p>
               <ul className="project-features"><li>Shared photo collections</li><li>Swipe to vote</li><li>Invite friends</li></ul>
               <p className="project-aside">Yes, we tested it with cat memes.</p>
+              <a className="project-source" href="https://github.com/AlanWYChen/Pick-Pic" target="_blank" rel="noreferrer"><img src="/logos/social/github.svg" alt="" width="20" height="20" />View source on GitHub</a>
             </div>
             <figure className="project-screen">
               <img src="/projects/pick-pic-gallery.png" alt="Pick-pic shared gallery showing cat photos and Invite, Filter, Upload, and Rank controls" width="853" height="1844" loading="lazy" />
