@@ -57,22 +57,25 @@ const techIcons = {
 };
 
 
-function CompanyCard({ company }) {
-  const [hovered, setHovered] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const open = hovered || expanded;
+function CompanyCard({ company, open, onExpand, onCollapse, onToggle }) {
   return (
-    <article className="company" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onKeyDown={event => { if (event.key === 'Escape') { setHovered(false); setExpanded(false); } }}>
+    <article className={`company${open ? ' is-expanded' : ''}`}
+      onPointerEnter={event => { if (event.pointerType === 'mouse') onExpand(); }}
+      onPointerLeave={event => { if (event.pointerType === 'mouse' && !event.currentTarget.contains(document.activeElement)) onCollapse(); }}
+      onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) onCollapse(); }}
+      onKeyDown={event => { if (event.key === 'Escape') onCollapse(); }}>
       <div className={`logo-container ${company.className}`}><img src={`/logos/${company.logo}`} alt={company.name} width="220" height="90" loading="lazy" /></div>
       <h3>{company.name}</h3>
       <p className="role">{company.role}</p>
-      <button className="company-toggle" aria-expanded={open} aria-controls={`intro-${company.className}`} onClick={() => { setHovered(false); setExpanded(!expanded); }} onFocus={event => { if (event.target.matches(':focus-visible')) setExpanded(true); }}>About {company.name}<span aria-hidden="true">{open ? '−' : '+'}</span></button>
-      <div id={`intro-${company.className}`} className="company-intro" hidden={!open}><p>{company.intro}</p><a href={company.url} target="_blank" rel="noreferrer">Visit company website</a></div>
+      <button className="company-toggle" aria-expanded={open} aria-controls={`intro-${company.className}`} onClick={onToggle} onFocus={event => { if (event.target.matches(':focus-visible')) onExpand(); }}>About {company.name}<span aria-hidden="true">{open ? '−' : '+'}</span></button>
+      <div id={`intro-${company.className}`} className="company-intro" inert={!open} aria-hidden={!open}><p>{company.intro}</p><a href={company.url} target="_blank" rel="noreferrer">Visit company website</a></div>
     </article>
   );
 }
 
 function App() {
+  const [activeCompany, setActiveCompany] = useState(null);
+  const companyColumns = companies.map(company => company.className === activeCompany ? '2fr' : '1fr').join(' ');
   return (
     <>
       <a href="#main" className="skip-link">Skip to content</a>
@@ -100,8 +103,8 @@ function App() {
         <section id="experience" className="experience section wrap" aria-labelledby="experience-title">
           <div className="section-top"><p className="eyebrow">01 / EXPERIENCE</p><span className="section-line" /></div>
           <div className="section-heading"><h2 id="experience-title">Where I’ve<br /><span>been building.</span></h2><p>A little startup energy. A little enterprise scale.<br />A lot of learning along the way.</p></div>
-          <div className="companies">{companies.map(company => (
-            <CompanyCard company={company} key={company.name} />
+          <div className="companies" style={{ gridTemplateColumns: companyColumns }}>{companies.map(company => (
+            <CompanyCard company={company} key={company.name} open={activeCompany === company.className} onExpand={() => setActiveCompany(company.className)} onCollapse={() => setActiveCompany(current => current === company.className ? null : current)} onToggle={() => setActiveCompany(current => current === company.className ? null : company.className)} />
           ))}</div>
           <div className="education"><img src="/logos/waterloo.png" alt="University of Waterloo" width="280" height="112" loading="lazy" /><div><h3>University of Waterloo</h3><p>Honours Bachelor of Computer Science, Co-op</p></div></div>
         </section>

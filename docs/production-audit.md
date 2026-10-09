@@ -32,3 +32,7 @@ Removed repeated hero links and all displayed company/education dates. Added off
 ## Company introductions and side project follow-up
 
 Company copy was checked against official sites. Added the requested legacy UKG smile wordmark, hover disclosures with button/keyboard access, and Escape dismissal. Pick-pic uses one supplied screenshot with no member contact information; the member-invitation screenshot is excluded. Production build passes. No new Critical or High findings in this scoped review.
+
+## Responsive layout follow-up
+
+Company cards animate grid fractions from equal thirds to 2:1:1 with a fixed row height. Verified the education document position is unchanged when a card expands. Header remains at viewport top when scrolled. Hero bottom text and scroll cue fit at 1440×900, 1280×600, 390×844, 320×568, and 844×390; no horizontal overflow. Education is centered. Hidden company descriptions are inert and excluded from assistive technology; buttons support keyboard activation and Escape. Reduced-motion disables transitions.
