@@ -36,3 +36,7 @@ Company copy was checked against official sites. Added the requested legacy UKG 
 ## Responsive layout follow-up
 
 Company cards animate grid fractions from equal thirds to 2:1:1 with a fixed row height. Verified the education document position is unchanged when a card expands. Header remains at viewport top when scrolled. Hero bottom text and scroll cue fit at 1440×900, 1280×600, 390×844, 320×568, and 844×390; no horizontal overflow. Education is centered. Hidden company descriptions are inert and excluded from assistive technology; buttons support keyboard activation and Escape. Reduced-motion disables transitions.
+
+## Header resume and home links
+
+Moved resume to a distinct amber PDF link in the sticky header; section links remain a separate navigation group. Narrow-screen CSS uses a second navigation row. Both header and footer home links were browser-verified to set scrollY to 0 and move focus to the header logo. The anchor target is no longer the sticky header. Build and diff checks pass. Desktop header visually verified. Responsive viewport override did not apply in this browser session, so mobile visual verification for this follow-up is unconfirmed.

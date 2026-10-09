@@ -76,16 +76,25 @@ function CompanyCard({ company, open, onExpand, onCollapse, onToggle }) {
 function App() {
   const [activeCompany, setActiveCompany] = useState(null);
   const companyColumns = companies.map(company => company.className === activeCompany ? '2fr' : '1fr').join(' ');
+  function returnToTop(event) {
+    event.preventDefault();
+    setActiveCompany(null);
+    window.history.replaceState(null, '', '#top');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.querySelector('header .monogram').focus({ preventScroll: true });
+  }
   return (
     <>
+      <div id="top" className="page-top" aria-hidden="true" />
       <a href="#main" className="skip-link">Skip to content</a>
-      <header className="header wrap" id="top">
-        <a className="monogram" href="#top" aria-label="Alan Chen home">ac<span>.</span></a>
+      <header className="header wrap">
+        <a className="monogram" href="#top" onClick={returnToTop} aria-label="Alan Chen home">ac<span>.</span></a>
         <nav aria-label="Main navigation">
           <a href="#experience">Experience</a>
           <a href="#stack">Tech stack</a>
           <a href="#contact">Get in touch</a>
         </nav>
+        <a className="header-resume" href="/alan-chen-resume.pdf" target="_blank" rel="noreferrer" aria-label="View resume PDF (opens in a new tab)">Resume <span className="pdf-label">PDF</span></a>
       </header>
       <main id="main">
         <section className="hero wrap" aria-labelledby="name">
@@ -152,7 +161,7 @@ function App() {
           </div>
         </section>
       </main>
-      <footer className="footer wrap"><a className="monogram" href="#top" aria-label="Back to top">ac<span>.</span></a><p>Alan Chen</p><a href="/alan-chen-resume.pdf" download>Download resume</a></footer>
+      <footer className="footer wrap"><a className="monogram" href="#top" onClick={returnToTop} aria-label="Back to top">ac<span>.</span></a><p>Alan Chen</p></footer>
     </>
   );
 }
