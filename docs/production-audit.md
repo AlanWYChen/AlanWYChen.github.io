@@ -58,3 +58,7 @@ Added an explicit Education label while preserving the owner-approved experience
 ## Cyan-blue theme update
 
 Replaced amber with Bilibili-inspired #00a1d6, including focus rings, headings, resume action, links, and favicon. Hover surfaces and borders use coordinated cool blue tokens. Accent text and dark button text maintain at least 4.5:1 contrast against the relevant backgrounds. Original company/technology logo colors are preserved. Build, formatting, and diff checks pass.
+
+## Favicon and social previews
+
+Rebuilt the reference ac mark as a scalable white monogram with blue dot and raster/ICO fallbacks (16, 32, 48px and 180px touch icon). Added a 1200×630 real landing-page screenshot with Open Graph and large-image Twitter card metadata in initial HTML, absolute production URLs, dimensions, alt text, and canonical URL. Verified every referenced icon and preview asset exists in the production output. Social-service caching and actual third-party preview rendering are outside the local verification.

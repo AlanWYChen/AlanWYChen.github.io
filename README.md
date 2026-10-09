@@ -102,3 +102,9 @@ The Pick-pic section uses the edited gallery screenshot with the marked word rem
 ## Code formatting
 
 Run `npm run format` to format application source, configuration, and documentation, or `npm run format:check` to check formatting without changing files. The project skill pack lives in `.skills/production-engineering-skills/`.
+
+## Favicons and social previews
+
+`public/favicon.svg` is the compact white ac mark with a cyan dot. PNG/ICO fallbacks and the 180px Apple touch icon use the same source.
+
+`public/social-preview.jpg` is a 1200×630 capture of the landing page. Open Graph and large-image card metadata are included in the initial HTML so link crawlers can read them without running React. The absolute URLs and canonical URL target https://alanwychen.github.io/. Update them if moving to a custom domain. Refresh the capture when the landing design changes. Social platforms may cache previous previews; LinkedIn’s Post Inspector can request a refresh.
