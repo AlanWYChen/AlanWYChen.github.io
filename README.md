@@ -20,6 +20,17 @@ npm run preview
 
 The complete static website is generated in `dist/`. No server, database, environment variables, or paid services are required. Fonts load from Google Fonts with local fallbacks.
 
+## Deploy to GitHub Pages (current host)
+
+The repository `AlanWYChen/AlanWYChen.github.io` publishes at https://alanwychen.github.io/.
+
+In **Settings → Pages → Build and deployment**, keep **Source: GitHub Actions**.
+The workflow in `.github/workflows/build.yml` builds with `npm ci` and `npm run build`, uploads only `dist/`, and deploys on pushes to `main`. Pull requests run the build without publishing. You can also run the workflow manually from Actions.
+
+Do not publish the source directory: its `index.html` references JSX that requires Vite compilation. This is a user site at the domain root, so Vite's default `/` base and the existing root-relative asset links are correct.
+
+Official guide: https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
+
 ## Deploy to Cloudflare Pages
 
 ### Git integration (automatic deployments)
@@ -69,7 +80,7 @@ Company marks belong to their respective owners. UKG is rendered in monochrome o
 
 Visual reference: https://www.andy-hk.com/ — dark background, large name typography, amber accents, and generous spacing; original content and implementation.
 
-GitHub Actions builds the site on pushes and pull requests. Publishing remains configured through Cloudflare Pages.
+GitHub Actions builds the site on pushes and pull requests. Publishing uses GitHub Pages; Cloudflare remains an alternative.
 
 Technology logos are locally hosted Devicon SVGs; source URLs and the upstream license are in `public/logos/tech/`. Waterloo’s official reversed colour logo comes from https://uwaterloo.ca/brand/uw-logos/university-logos/all. Technology badges support hover and keyboard-focus highlighting.
 
