@@ -40,3 +40,7 @@ Company cards animate grid fractions from equal thirds to 2:1:1 with a fixed row
 ## Header resume and home links
 
 Moved resume to a distinct amber PDF link in the sticky header; section links remain a separate navigation group. Narrow-screen CSS uses a second navigation row. Both header and footer home links were browser-verified to set scrollY to 0 and move focus to the header logo. The anchor target is no longer the sticky header. Build and diff checks pass. Desktop header visually verified. Responsive viewport override did not apply in this browser session, so mobile visual verification for this follow-up is unconfirmed.
+
+## AI capabilities follow-up
+
+Merged cloud, delivery, and observability tools; added the eight owner-approved AI & Agent Engineering skills. Generic capabilities use small local SVG interface icons rather than invented brand logos. Browser verified all tech icons load, eight AI skills appear, no horizontal overflow at the current desktop viewport, and the hover/focus styling is retained. Build and diff checks pass.

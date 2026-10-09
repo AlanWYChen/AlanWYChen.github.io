@@ -98,3 +98,6 @@ h1{font-size:clamp(3rem,min(11.6vw,16svh),10.5rem)}
 @media(max-width:900px){.header{gap:22px}.header nav{gap:22px}.header nav a{letter-spacing:.1em}.header-resume{padding-inline:13px}}
 @media(max-width:600px){:root{--header-height:116px}.header{grid-template-columns:1fr auto;grid-template-rows:60px 55px;gap:0 20px;align-items:center}.header .monogram{grid-column:1;grid-row:1}.header-resume{grid-column:2;grid-row:1;min-height:40px;padding:8px 14px}.header nav{grid-column:1 / -1;grid-row:2;justify-content:space-between;width:100%;gap:12px;border-top:1px solid #ffffff0d}.header nav a{font-size:.75rem;letter-spacing:.07em;min-height:48px}.footer p{order:initial;flex-basis:auto}}
 @media(max-width:370px){.header nav a{font-size:.6875rem}.header-resume{font-size:.8125rem}}
+.stack-label h3{line-height:1.4}
+.stack-group .tech-chip{max-width:100%}
+.tech-chip span{min-width:0;overflow-wrap:anywhere}

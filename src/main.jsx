@@ -13,11 +13,19 @@ const stacks = [
   { title: 'Backend', symbol: '{ }', tools: ['Python', 'FastAPI', 'Django', 'Node.js / Fastify', 'Java', 'Spring Boot', 'Go', 'C#', 'C++'] },
   { title: 'Mobile', symbol: '[ ]', tools: ['Ionic', 'Swift / SwiftUI', 'Kotlin / Jetpack Compose', 'Xcode', 'Android Studio'] },
   { title: 'Data', symbol: '::', tools: ['PostgreSQL', 'MySQL', 'SQLite', 'Redis'] },
-  { title: 'Cloud & delivery', symbol: '⌘', tools: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'Pulumi', 'GitHub Actions', 'CircleCI'] },
-  { title: 'Observability', symbol: '*', tools: ['Sentry', 'Splunk', 'Prometheus', 'Grafana'] },
+  { title: 'Cloud, Delivery & Observability', symbol: '⌘', tools: ['AWS', 'GCP', 'Docker', 'Kubernetes', 'Terraform', 'Pulumi', 'GitHub Actions', 'CircleCI', 'Sentry', 'Splunk', 'Prometheus', 'Grafana'] },
+  { title: 'AI & Agent Engineering', symbol: '*', tools: ['Agentic Workflows', 'Tool Design & Integration', 'MCP', 'Schema Grounding', 'Sandboxed Execution', 'Query Validation & Guardrails', 'Human-in-the-Loop Review', 'Agent Evaluation & Testing'] },
 ];
 
 const techIcons = {
+  "Agentic Workflows": "agent-workflow",
+  "Tool Design & Integration": "agent-tools",
+  "MCP": "agent-protocol",
+  "Schema Grounding": "agent-schema",
+  "Sandboxed Execution": "agent-sandbox",
+  "Query Validation & Guardrails": "agent-guardrails",
+  "Human-in-the-Loop Review": "agent-human-review",
+  "Agent Evaluation & Testing": "agent-evaluation",
   "SolidJS": "solidjs",
   "AngularJS": "angularjs",
   "Xcode": "xcode",
