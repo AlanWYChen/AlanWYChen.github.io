@@ -6,8 +6,17 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1"
+    "preview": "vite preview --host 127.0.0.1",
+    "format": "prettier --write src index.html vite.config.js package.json README.md docs .github/workflows",
+    "format:check": "prettier --check src index.html vite.config.js package.json README.md docs .github/workflows"
   },
-  "dependencies": { "react": "^19.2.0", "react-dom": "^19.2.0" },
-  "devDependencies": { "vite": "^7.1.0", "@vitejs/plugin-react": "^5.0.0" }
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.0",
+    "prettier": "3.9.9",
+    "vite": "^7.1.0"
+  }
 }

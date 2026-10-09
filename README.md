@@ -57,7 +57,10 @@ Official documentation: https://developers.cloudflare.com/pages/framework-guides
 
 ## Editing
 
-- `src/main.jsx`: all content, companies, tech stack, sections, and links.
+- `src/main.jsx`: React entry point.
+- `src/App.jsx`: page sections and navigation behavior.
+- `src/data/portfolio.js`: companies, tech stack, contact profile, and icon mapping.
+- `src/components/CompanyCard.jsx`: animated company card interaction.
 - `src/styles.css`: layout, colors, typography, responsive behavior.
 - `public/alan-chen-resume.pdf`: replace to update the download. This is the original supplied PDF, including its contact details.
 - `index.html`: page title, description, and social metadata.
@@ -66,14 +69,14 @@ Official documentation: https://developers.cloudflare.com/pages/framework-guides
 
 The company section lists roles without dates or performance metrics. Education is presented without attendance dates. Review the introductory copy before publishing to ensure it reflects your voice.
 
-The site includes visible focus states, a skip link, semantic sections, and reduced-motion support. Contact actions use email and LinkedIn; there is no form backend.
+The site includes visible focus states, a skip link, semantic sections, and reduced-motion support. Contact links include email, LinkedIn, GitHub, and an X placeholder; there is no form backend.
 
 ## Logo sources
 
 Local copies of official company assets are stored in `public/logos/`:
 
 - Scrawlr: https://corporate.scrawlr.com/assets/scrawlr-default-logo-CpUOVOM7.png
-- UKG: https://static.vscdn.net/images/careers/demo/ukg-sandbox/1758546413::primary-UKG-logo-dark-teal-RGB.png (UKG careers website)
+- UKG: https://commons.wikimedia.org/wiki/File:UKG_(Ultimate_Kronos_Group)_logo.svg (earlier smile wordmark)
 - Metergy Solutions: https://cdn.prod.website-files.com/5f9c6d92db1af71866a9ca37/5fb679dc6fab3d4bf5b4be4d_Metergy_TM_Logo_w.svg (Metergy website)
 
 Company marks belong to their respective owners. UKG is rendered in monochrome on the dark background.
@@ -86,11 +89,16 @@ Technology logos are locally hosted Devicon SVGs; source URLs and the upstream l
 
 ## Company introductions and Pick-pic
 
-Company introductions support hover, keyboard focus, button toggling, and Escape. Sources:
+Company introductions support hover, keyboard focus, tap activation, and Escape. Sources:
+
 - https://corporate.scrawlr.com/projects
 - https://www.ukg.com
 - https://www.metergysolutions.com
 
 UKG uses the earlier smile wordmark requested by the owner, sourced from https://commons.wikimedia.org/wiki/File:UKG_(Ultimate_Kronos_Group)_logo.svg. UKG announced its subsequent rebrand on October 1, 2025.
 
-The Pick-pic section uses the edited gallery screenshot with the marked word removed. The screenshots with member emails and other demo content are not included. Project copy describes visible functionality and the owner's stated group-project context; no individual contribution, stack, or live app link is invented.
+The Pick-pic section uses the edited gallery screenshot with the marked word removed. The screenshots with member emails and other demo content are not included. Project copy describes the owner-confirmed project and visible functionality. Source code is linked at https://github.com/AlanWYChen/Pick-Pic.
+
+## Code formatting
+
+Run `npm run format` to format application source, configuration, and documentation, or `npm run format:check` to check formatting without changing files. The project skill pack lives in `.skills/production-engineering-skills/`.

@@ -18,9 +18,11 @@ Scope: static React portfolio redesign, applying production-engineering-skills/w
 ## Remaining findings
 
 ### Low — index.html / deployment
+
 Canonical URL and sitemap are deferred until the final public domain is known. Add the actual production origin after deployment rather than inventing a domain.
 
 ### Low — src/styles.css
+
 Google Fonts is an external dependency. System font fallbacks prevent blocked content; self-host fonts if removing external font requests becomes a requirement.
 
 No Critical or High findings identified in this scoped review. This is not a formal accessibility certification or a measured Core Web Vitals audit.
@@ -44,3 +46,7 @@ Moved resume to a distinct amber PDF link in the sticky header; section links re
 ## AI capabilities follow-up
 
 Merged cloud, delivery, and observability tools; added the eight owner-approved AI & Agent Engineering skills. Generic capabilities use small local SVG interface icons rather than invented brand logos. Browser verified all tech icons load, eight AI skills appear, no horizontal overflow at the current desktop viewport, and the hover/focus styling is retained. Build and diff checks pass.
+
+## Housekeeping audit
+
+Applied the web and React guidance from `.skills/production-engineering-skills/`. Separated static portfolio data and CompanyCard from the page component, added Prettier formatting commands and a CI format check, removed 14 selectors for absent UI and two unused assets, and corrected outdated README statements. Browser comparison of 289 elements found identical leaf text, bounding rectangles, and sampled computed styles before/after. Company activation, Escape, and return-to-top remain checked. No feature or content changes to the rendered site were introduced. Production build and format check pass; source scan has no TODO/FIXME/debugger/console.log or placeholder URLs. No new Critical or High findings. Existing limitations around unmeasured Core Web Vitals and unverified formal accessibility compliance remain.
