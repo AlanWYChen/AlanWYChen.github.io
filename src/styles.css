@@ -101,3 +101,6 @@ h1{font-size:clamp(3rem,min(11.6vw,16svh),10.5rem)}
 .stack-label h3{line-height:1.4}
 .stack-group .tech-chip{max-width:100%}
 .tech-chip span{min-width:0;overflow-wrap:anywhere}
+.header-resume{align-items:baseline;line-height:1}
+.header-resume>span{line-height:1}
+.header-resume .pdf-label{font-size:.75rem}

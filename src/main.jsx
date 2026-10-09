@@ -89,7 +89,11 @@ function App() {
     setActiveCompany(null);
     window.history.replaceState(null, '', '#top');
     window.scrollTo({ top: 0, behavior: 'instant' });
-    document.querySelector('header .monogram').focus({ preventScroll: true });
+    if (event.detail === 0) {
+      document.querySelector('header .monogram').focus({ preventScroll: true });
+    } else {
+      document.activeElement?.blur();
+    }
   }
   return (
     <>
@@ -102,7 +106,7 @@ function App() {
           <a href="#stack">Tech stack</a>
           <a href="#contact">Get in touch</a>
         </nav>
-        <a className="header-resume" href="/alan-chen-resume.pdf" target="_blank" rel="noreferrer" aria-label="View resume PDF (opens in a new tab)">Resume <span className="pdf-label">PDF</span></a>
+        <a className="header-resume" href="/alan-chen-resume.pdf" target="_blank" rel="noreferrer" aria-label="View resume PDF (opens in a new tab)"><span>Resume</span><span className="pdf-label">PDF</span></a>
       </header>
       <main id="main">
         <section className="hero wrap" aria-labelledby="name">
@@ -141,10 +145,10 @@ function App() {
           <div className="section-top"><p className="eyebrow">03 / ON THE SIDE</p><span className="section-line" /></div>
           <div className="project-feature">
             <div className="project-copy">
-              <p className="project-type">MOBILE · GROUP PROJECT</p>
+              <p className="project-type">MOBILE PROJECT</p>
               <h2 id="pick-pic-title">Pick-pic<span>.</span></h2>
               <p className="project-lead">A shared space for photos.<br />A little friendly voting.</p>
-              <p>A mobile side project I built with a group. Pick-pic brings shared photo collections and swipe-based voting together.</p>
+              <p>A mobile side project I built. Pick-pic brings shared photo collections and swipe-based voting together.</p>
               <ul className="project-features"><li>Shared photo collections</li><li>Swipe to vote</li><li>Invite friends</li></ul>
               <p className="project-aside">Yes, we tested it with cat memes.</p>
               <a className="project-source" href="https://github.com/AlanWYChen/Pick-Pic" target="_blank" rel="noreferrer"><img src="/logos/social/github.svg" alt="" width="20" height="20" />View source on GitHub</a>
