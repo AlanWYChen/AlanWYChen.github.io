@@ -1272,3 +1272,40 @@ h1 {
   line-height: 1;
   transform: translateY(1px);
 }
+
+/* Give longer tool categories room without shrinking badges. */
+.stack-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 48px;
+  row-gap: 34px;
+}
+.stack-symbol {
+  flex: 0 0 34px;
+  white-space: nowrap;
+  line-height: 1;
+}
+.stack-label {
+  min-height: 36px;
+}
+.education div > .education-label {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+@media (max-width: 700px) {
+  .stack-grid {
+    column-gap: 22px;
+  }
+  .stack-symbol {
+    flex-basis: 30px;
+    font-size: 1rem;
+  }
+}
+@media (max-width: 540px) {
+  .stack-grid {
+    grid-template-columns: 1fr;
+  }
+}

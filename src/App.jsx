@@ -128,6 +128,7 @@ export default function App() {
               loading="lazy"
             />
             <div>
+              <p className="education-label">Education</p>
               <h3>University of Waterloo</h3>
               <p>Honours Bachelor of Computer Science, Co-op</p>
             </div>

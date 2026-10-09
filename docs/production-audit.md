@@ -50,3 +50,7 @@ Merged cloud, delivery, and observability tools; added the eight owner-approved 
 ## Housekeeping audit
 
 Applied the web and React guidance from `.skills/production-engineering-skills/`. Separated static portfolio data and CompanyCard from the page component, added Prettier formatting commands and a CI format check, removed 14 selectors for absent UI and two unused assets, and corrected outdated README statements. Browser comparison of 289 elements found identical leaf text, bounding rectangles, and sampled computed styles before/after. Company activation, Escape, and return-to-top remain checked. No feature or content changes to the rendered site were introduced. Production build and format check pass; source scan has no TODO/FIXME/debugger/console.log or placeholder URLs. No new Critical or High findings. Existing limitations around unmeasured Core Web Vitals and unverified formal accessibility compliance remain.
+
+## Education and toolkit balance
+
+Added an explicit Education label while preserving the owner-approved experience introduction. Changed toolkit to two wider columns, with a single column below 540px, to reduce wrapping in long categories. Fixed category symbols to a non-shrinking, non-wrapping width; browser verified all six symbol heights are equal and no horizontal overflow at the current 596px viewport. Production build passes. All skills and icons are retained.
