@@ -129,8 +129,8 @@ function App() {
               <p className="project-aside">Yes, we tested it with cat memes.</p>
             </div>
             <figure className="project-screen">
-              <img src="/projects/pick-pic-swipe.jpeg" alt="Pick-pic voting screen showing a cat photo being swiped with an Upvote label" width="945" height="2048" loading="lazy" />
-              <figcaption>Pick-pic · Swipe voting</figcaption>
+              <img src="/projects/pick-pic-gallery.png" alt="Pick-pic shared gallery showing cat photos and Invite, Filter, Upload, and Rank controls" width="853" height="1844" loading="lazy" />
+              <figcaption>Pick-pic · Shared photo gallery</figcaption>
             </figure>
           </div>
         </section>

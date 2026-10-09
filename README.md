@@ -93,4 +93,4 @@ Company introductions support hover, keyboard focus, button toggling, and Escape
 
 UKG uses the earlier smile wordmark requested by the owner, sourced from https://commons.wikimedia.org/wiki/File:UKG_(Ultimate_Kronos_Group)_logo.svg. UKG announced its subsequent rebrand on October 1, 2025.
 
-The Pick-pic section uses the supplied swipe-voting screenshot unchanged. The screenshots with member emails and other demo content are not included. Project copy describes visible functionality and the owner's stated group-project context; no individual contribution, stack, or live app link is invented.
+The Pick-pic section uses the edited gallery screenshot with the marked word removed. The screenshots with member emails and other demo content are not included. Project copy describes visible functionality and the owner's stated group-project context; no individual contribution, stack, or live app link is invented.
