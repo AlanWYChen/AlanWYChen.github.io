@@ -81,7 +81,7 @@ Local copies of official company assets are stored in `public/logos/`:
 
 Company marks belong to their respective owners. UKG is rendered in monochrome on the dark background.
 
-Visual reference: https://www.andy-hk.com/ — dark background, large name typography, amber accents, and generous spacing; original content and implementation.
+Visual reference: https://www.andy-hk.com/ — dark background, large name typography, cyan-blue accents, and generous spacing; original content and implementation.
 
 GitHub Actions builds the site on pushes and pull requests. Publishing uses GitHub Pages; Cloudflare remains an alternative.
 

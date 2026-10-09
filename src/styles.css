@@ -5,7 +5,10 @@
   color: #f4f3ef;
   background: #141414;
   font-synthesis: none;
-  --accent: #efb452;
+  --accent: #00a1d6;
+  --accent-hover: #50c8ee;
+  --accent-surface: #17262e;
+  --accent-border: #28758f;
   --muted: #a2a29f;
   --line: #333331;
 }
@@ -321,7 +324,7 @@ h2 span {
 .email-link {
   font-size: clamp(1.3rem, 2.6vw, 2rem);
   letter-spacing: -0.035em;
-  border-bottom: 1px solid #7b7569;
+  border-bottom: 1px solid #64747c;
   padding-block: 8px 12px;
 }
 .footer {
@@ -613,7 +616,7 @@ h2 span {
 }
 .tech-chip:hover,
 .tech-chip:focus-visible {
-  background: #302b23;
+  background: var(--accent-surface);
   border-color: var(--accent);
   color: #fff;
   transform: translateY(-3px);
@@ -695,7 +698,7 @@ h2 span {
 .contact-socials a:hover,
 .contact-socials a:focus-visible {
   border-color: var(--accent);
-  background: #353026;
+  background: var(--accent-surface);
 }
 .contact-socials a:hover img,
 .contact-socials a:focus-visible img {
@@ -877,7 +880,7 @@ h2 span {
   filter: brightness(0) invert(1);
 }
 .project-source:hover {
-  color: #ffe1aa;
+  color: var(--accent-hover);
 }
 
 /* Persistent navigation and a hero that fits the available screen height. */
@@ -958,8 +961,8 @@ h1 {
     border-color 0.35s;
 }
 .company.is-expanded {
-  background: #211f1a;
-  border-color: #8d7046;
+  background: var(--accent-surface);
+  border-color: var(--accent-border);
 }
 .company .logo-container {
   height: 105px;
@@ -1167,8 +1170,8 @@ h1 {
   white-space: nowrap;
 }
 .header-resume:hover {
-  background: #ffd18a;
-  border-color: #ffd18a;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
   color: #141414;
 }
 .header-resume .pdf-label {

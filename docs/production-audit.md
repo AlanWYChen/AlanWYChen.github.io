@@ -54,3 +54,7 @@ Applied the web and React guidance from `.skills/production-engineering-skills/`
 ## Education and toolkit balance
 
 Added an explicit Education label while preserving the owner-approved experience introduction. Changed toolkit to two wider columns, with a single column below 540px, to reduce wrapping in long categories. Fixed category symbols to a non-shrinking, non-wrapping width; browser verified all six symbol heights are equal and no horizontal overflow at the current 596px viewport. Production build passes. All skills and icons are retained.
+
+## Cyan-blue theme update
+
+Replaced amber with Bilibili-inspired #00a1d6, including focus rings, headings, resume action, links, and favicon. Hover surfaces and borders use coordinated cool blue tokens. Accent text and dark button text maintain at least 4.5:1 contrast against the relevant backgrounds. Original company/technology logo colors are preserved. Build, formatting, and diff checks pass.
