@@ -1,7 +1,13 @@
-export default function CompanyCard({ company, open, onExpand, onCollapse }) {
+export default function CompanyCard({
+  company,
+  enhanced,
+  open,
+  onExpand,
+  onCollapse,
+}) {
   return (
     <article
-      className={`company${open ? ' is-expanded' : ''}`}
+      className={`company${enhanced ? ' is-interactive' : ''}${open ? ' is-expanded' : ''}`}
       onPointerEnter={(event) => {
         if (event.pointerType === 'mouse') onExpand();
       }}
@@ -44,10 +50,10 @@ export default function CompanyCard({ company, open, onExpand, onCollapse }) {
       <div
         id={`intro-${company.className}`}
         className="company-intro"
-        inert={!open}
-        aria-hidden={!open}
+        inert={enhanced && !open}
+        aria-hidden={enhanced && !open}
       >
-        <p>{company.intro}</p>
+        <p>{company.summary}</p>
         <a href={company.url} target="_blank" rel="noreferrer">
           Visit company website
         </a>

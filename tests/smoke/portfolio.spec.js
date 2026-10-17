@@ -136,7 +136,6 @@ test('resume and outbound links retain their intended destinations', async ({
     ['alan.ch3n@gmail.com', 'mailto:alan.ch3n@gmail.com'],
     ['LinkedIn profile', 'https://www.linkedin.com/in/alan-wy-chen'],
     ['GitHub profile', 'https://github.com/AlanWYChen'],
-    ['X (Twitter)', 'https://x.com'],
     ['View source on GitHub', 'https://github.com/AlanWYChen/Pick-Pic'],
   ]) {
     await expect(page.getByRole('link', { name, exact: true })).toHaveAttribute(

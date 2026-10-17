@@ -1312,3 +1312,20 @@ h1 {
     grid-template-columns: 1fr;
   }
 }
+
+/* Essential content stays readable until React enables card interactions. */
+.company:not(.is-interactive) {
+  height: auto;
+  overflow: visible;
+}
+.company:not(.is-interactive) .company-toggle {
+  display: none;
+}
+.company:not(.is-interactive) .company-intro {
+  position: static;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  overflow: visible;
+  margin-top: 16px;
+}

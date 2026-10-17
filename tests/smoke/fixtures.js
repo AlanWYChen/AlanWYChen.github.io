@@ -20,6 +20,11 @@ export const test = base.extend({
           route.fulfill({ status: 200, contentType: 'text/css', body: '' }),
       );
       page.on('pageerror', (error) => errors.push(error.message));
+      page.on('console', (message) => {
+        if (message.type() === 'error' && /hydrat/i.test(message.text())) {
+          errors.push(message.text());
+        }
+      });
       page.on('request', (request) => {
         if (isLocalAsset(request)) assets.add(request.url());
       });

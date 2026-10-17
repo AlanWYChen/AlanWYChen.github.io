@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "node scripts/preview.mjs",
     "format": "prettier --write src index.html vite.config.js package.json README.md .github playwright*.js tests scripts",
     "format:check": "prettier --check src index.html vite.config.js package.json README.md .github playwright*.js tests scripts",

@@ -4,11 +4,16 @@ import CompanyCard from './components/CompanyCard.jsx';
 
 export default function App() {
   const [activeCompany, setActiveCompany] = useState(null);
+  const [enhanced, setEnhanced] = useState(false);
   useLayoutEffect(() => {
-    // Section anchors only exist after React mounts; restore direct/refresh links then.
+    if (!enhanced) {
+      setEnhanced(true);
+      return;
+    }
+    // Restore fragment position after the interactive card layout is enabled.
     const target = document.getElementById(window.location.hash.slice(1));
     target?.scrollIntoView({ behavior: 'instant' });
-  }, []);
+  }, [enhanced]);
   const companyColumns = companies
     .map((company) => (company.className === activeCompany ? '2fr' : '1fr'))
     .join(' ');
@@ -102,8 +107,8 @@ export default function App() {
               <span>been building.</span>
             </h2>
             <p>
-              A little startup energy. A little enterprise scale.
-              <br />A lot of learning along the way.
+              Software engineering across infrastructure, mobile platforms, and
+              full-stack applications.
             </p>
           </div>
           <div
@@ -113,6 +118,7 @@ export default function App() {
             {companies.map((company) => (
               <CompanyCard
                 company={company}
+                enhanced={enhanced}
                 key={company.name}
                 open={activeCompany === company.className}
                 onExpand={() => setActiveCompany(company.className)}
@@ -178,7 +184,9 @@ export default function App() {
                         height="28"
                         loading="lazy"
                       />
-                      <span>{tool}</span>
+                      <span>
+                        {tool === 'MCP' ? 'Model Context Protocol (MCP)' : tool}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -274,20 +282,6 @@ export default function App() {
                 >
                   <img
                     src="/logos/social/linkedin.svg"
-                    alt=""
-                    width="24"
-                    height="24"
-                  />
-                </a>
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="X (Twitter)"
-                  title="X (Twitter)"
-                >
-                  <img
-                    src="/logos/social/twitter.svg"
                     alt=""
                     width="24"
                     height="24"

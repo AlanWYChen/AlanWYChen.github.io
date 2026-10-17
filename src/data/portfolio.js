@@ -3,10 +3,10 @@ export const companies = [
   {
     name: 'Scrawlr',
     logo: 'scrawlr.png',
-    role: 'Software Engineer, Infrastructure',
+    role: 'Software Engineer, Platform & Infrastructure',
     className: 'scrawlr',
-    intro:
-      'Scrawlr builds products for social browsing, travel, and vacation rentals: Scrawlr connects conversations across the web, Jauntr offers flight rewards, and Lodgr helps guests book directly with hosts.',
+    summary:
+      'I focused on platform engineering and cloud infrastructure. My work spanned AWS, CI/CD, and agentic workflows, with an emphasis on reliable deployments and production operations.',
     url: 'https://corporate.scrawlr.com/projects',
   },
   {
@@ -14,8 +14,8 @@ export const companies = [
     logo: 'ukg-smile.svg',
     role: 'Software Engineer, Mobile Platform',
     className: 'ukg',
-    intro:
-      'UKG makes HR, payroll, and workforce management software, helping organizations manage people, schedules, and pay.',
+    summary:
+      'I developed native and cross-platform mobile software for iOS and Android. My work strengthened platform reliability through release engineering, production observability, and improvements to shared mobile infrastructure.',
     url: 'https://www.ukg.com',
   },
   {
@@ -23,8 +23,8 @@ export const companies = [
     logo: 'metergy.svg',
     role: 'Software Engineer',
     className: 'metergy',
-    intro:
-      'Metergy provides submetering for buildings, measuring individual electricity, water, gas, and thermal usage so residents and property teams can understand and manage utility costs.',
+    summary:
+      'I owned full-stack development from UI/UX to architecture. My work spanned resilient field applications, high-performance data pipelines, and automation for core business operations.',
     url: 'https://www.metergysolutions.com',
   },
 ];

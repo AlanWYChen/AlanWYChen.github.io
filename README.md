@@ -56,3 +56,23 @@ The workflow uses only the repository's `GITHUB_TOKEN`, with Pages and OIDC writ
 Application source and public assets were copied unchanged from the former `swe-personal-site` submodule. Logo attribution and licensing are retained in `public/logos/tech/`. The existing `public/_headers` file is retained for hosts that support it; GitHub Pages does not apply that file as header configuration.
 
 See [the migration notes](docs/repository-migration.md) for the repository transition and pending publication steps. `HANDOFF.md` records the previous architecture and is historical context.
+
+## Dependency updates
+
+Dependabot opens npm and GitHub Actions update PRs weekly on Monday at 09:00 America/Toronto. `.github/workflows/dependabot-auto-merge.yml` approves and enables auto-merge only for verified Dependabot PRs in the GitHub Actions ecosystem, including major upgrades such as `actions/checkout@v4` to `@v5`. npm updates, including security updates, remain open for you to review and merge manually.
+
+For each repository, enable **Settings → General → Pull Requests → Allow auto-merge** and **Allow squash merging**. Under **Settings → Actions → General → Workflow permissions**, enable **Allow GitHub Actions to create and approve pull requests**. Protect `main` with a branch rule or ruleset requiring the `build` status check from **Publish GitHub Pages** before merging. Auto-merge obeys required checks and review rules; additional requirements that the bot cannot satisfy will leave the PR waiting. Without a required check, GitHub can merge immediately.
+
+GitHub suppresses new workflow runs for merges made using `GITHUB_TOKEN`. If an automatic merge does not trigger publication, run **Publish GitHub Pages → Run workflow** on `main` to publish it. No personal access token is required by this setup.
+
+## Crawlable portfolio HTML
+
+`npm run build` runs Vite, then `scripts/prerender.mjs` renders the existing React components through `src/entry-server.jsx` into `dist/index.html`. The published page includes the full portfolio and JSON-LD identity data before JavaScript runs. The browser hydrates that markup; local Vite development still uses client rendering. No server runtime or additional dependencies are deployed.
+
+Role summaries and company website links are expanded without JavaScript. React enables the existing hover, keyboard, and tap behavior after hydration. Each card contains a two-sentence summary of the engineering focus at that company; update `src/data/portfolio.js` when those facts change. The placeholder X homepage link has been removed.
+
+`public/robots.txt` allows crawlers and advertises `public/sitemap.xml`, which lists the canonical SWE homepage. These files describe only this portfolio. The default crawler policy also permits training crawlers; search access and training access can be configured separately if desired. The schema links verified GitHub and LinkedIn identities and derives skills from the visible stack data.
+
+`npm run verify` checks static content, identity metadata, canonical/sitemap consistency, and local assets. Browser smoke tests cover the site with JavaScript disabled and detect hydration errors alongside the existing interactive checks. Production smoke tests also require portfolio content and JSON-LD in the raw deployed response.
+
+After publication, verify the site in Google Search Console, submit `/sitemap.xml`, inspect the live homepage and Google's rendered HTML, and request indexing. Search Console ownership and reindexing require the owner's account. No ranking or AI recommendation is guaranteed. Additional project case-study pages should be added when there is enough verified implementation detail to support them.

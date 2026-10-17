@@ -19,6 +19,10 @@ for (const [path, name] of [['/', /Alan Chen/]]) {
     await waitForEntry(request, path);
     const response = await page.goto(path);
     expect(response.ok()).toBe(true);
+    const html = await response.text();
+    expect(html).toContain('<h1');
+    expect(html).toContain('platform engineering and cloud infrastructure');
+    expect(html).toContain('application/ld+json');
     await expect(page.getByRole('heading', { level: 1, name })).toBeVisible();
     const scripts = await page
       .locator('script[src]')
