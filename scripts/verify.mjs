@@ -1,59 +1,35 @@
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
 const root = fileURLToPath(new URL('../dist/', import.meta.url));
-for (const [entry, base] of [
-  ['index.html', '/'],
-  ['teach/index.html', '/teach/'],
-]) {
-  const html = readFileSync(join(root, entry), 'utf8');
-  const assets = [...html.matchAll(/(?:src|href)="([^"#]+)"/g)]
-    .map((match) => match[1])
-    .filter((url) => url.startsWith('/') && !url.startsWith('//'));
-  assert(assets.length > 0, `${entry} must contain built assets`);
-  for (const asset of assets) {
-    assert(asset.startsWith(base), `${entry}: asset escapes ${base}: ${asset}`);
-    assert(
-      existsSync(join(root, asset.split(/[?#]/)[0])),
-      `${entry}: missing ${asset}`,
-    );
-    if (base === '/')
-      assert(
-        !asset.startsWith('/teach/'),
-        'Portfolio references teaching assets',
-      );
-  }
-  if (base === '/')
-    assert(
-      !/href=["']\/teach(?:[\/"'#?])/.test(html),
-      'Unexpected teaching navigation',
-    );
-  else
-    assert(
-      !/href=["']\/(?:["'#?])/.test(html),
-      'Unexpected portfolio navigation',
-    );
+const base = '/';
+const html = readFileSync(join(root, 'index.html'), 'utf8');
+const assets = [...html.matchAll(/(?:src|href)="([^"#]+)"/g)]
+  .map((match) => match[1])
+  .filter((url) => url.startsWith('/') && !url.startsWith('//'));
+assert(assets.length > 0, 'Entry page must contain built assets');
+for (const asset of assets) {
+  assert(asset.startsWith(base), `Asset escapes ${base}: ${asset}`);
+  assert(
+    existsSync(join(root, asset.slice(base.length).split(/[?#]/)[0])),
+    `Missing asset: ${asset}`,
+  );
 }
-// Every portfolio output file must survive composition byte for byte.
-const portfolio = fileURLToPath(
-  new URL('../apps/portfolio/dist/', import.meta.url),
+assert(
+  !existsSync(join(root, 'teach')),
+  'Legacy teaching output must not be deployed',
 );
-function compare(directory, relative = '') {
-  for (const item of readdirSync(directory, { withFileTypes: true })) {
-    const name = join(relative, item.name);
-    if (item.isDirectory()) compare(join(directory, item.name), name);
-    else
-      assert.deepEqual(
-        readFileSync(join(root, name)),
-        readFileSync(join(portfolio, name)),
-        `Changed portfolio file: ${name}`,
-      );
-  }
-}
-compare(portfolio);
-assert(existsSync(join(root, '.nojekyll')));
+assert(
+  !existsSync(join(root, 'tutoring')),
+  'Project output must not be nested or assembled',
+);
+assert(
+  readFileSync(join(root, 'alan-chen-resume.pdf')).subarray(0, 5).toString() ===
+    '%PDF-',
+  'Resume must remain a PDF',
+);
 console.log(
-  'Verified separate asset paths, entry pages, and unchanged portfolio output.',
+  'Verified entry page, asset paths, and independent deployment output.',
 );

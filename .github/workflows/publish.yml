@@ -18,45 +18,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-        with:
-          submodules: recursive
       - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            apps/portfolio/package-lock.json
-            apps/teaching/package-lock.json
-      - name: Install independent app dependencies
-        run: npm run setup
-      - name: Check app formatting
-        run: |
-          npm --prefix apps/portfolio run format:check
-          npm --prefix apps/teaching run format:check
-      - name: Build both apps
-        run: npm run build
-      - name: Verify assembled site
-        run: npm run verify
-      - name: Install smoke-test browser
-        run: npx playwright install --with-deps chromium
-      - name: Composite browser smoke tests
-        run: npm run test:smoke:composite
-      - name: Upload composite smoke-test failure evidence
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run build
+      - run: npm run verify
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:smoke
+      - name: Upload smoke-test failure evidence
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: browser-smoke-composite
+          name: browser-smoke
           path: |
             playwright-report/
             test-results/
           if-no-files-found: ignore
           retention-days: 7
       - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
-      - name: Upload built site
-        if: github.event_name != 'pull_request'
+      - name: Upload checked site
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
@@ -67,6 +53,9 @@ jobs:
     outputs:
       page_url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages-deployment
+      cancel-in-progress: false
     permissions:
       pages: write
       id-token: write
@@ -99,7 +88,7 @@ jobs:
         with:
           name: browser-smoke-production
           path: |
-            playwright-report/
-            test-results/
+            playwright-report/production/
+            test-results/production/
           if-no-files-found: ignore
           retention-days: 7

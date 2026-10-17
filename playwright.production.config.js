@@ -4,13 +4,14 @@ import config from './playwright.config.js';
 const baseURL = process.env.SMOKE_BASE_URL || 'https://alanwychen.github.io/';
 const url = new URL(baseURL);
 if (!['http:', 'https:'].includes(url.protocol) || url.pathname !== '/') {
-  throw new Error(
-    'SMOKE_BASE_URL must be an HTTP(S) origin, e.g. https://alanwychen.github.io/',
-  );
+  throw new Error('SMOKE_BASE_URL must be an HTTP(S) URL ending in /');
 }
 
 export default defineConfig({
   ...config,
+  projects: [
+    { name: 'production', use: { viewport: { width: 1440, height: 900 } } },
+  ],
   testIgnore: [],
   testMatch: '**/production.spec.js',
   fullyParallel: false,
@@ -20,7 +21,6 @@ export default defineConfig({
     ['html', { open: 'never', outputFolder: 'playwright-report/production' }],
   ],
   outputDir: 'test-results/production',
-  // Only post-deploy checks retry: Pages can take a moment to propagate.
   retries: 2,
   timeout: 45000,
   webServer: undefined,

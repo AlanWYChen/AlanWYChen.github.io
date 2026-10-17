@@ -10,10 +10,7 @@ async function waitForEntry(request, path) {
     .toBe(200);
 }
 
-for (const [path, name] of [
-  ['/', /Alan Chen/],
-  ['/teach/', /^Teaching$/],
-]) {
+for (const [path, name] of [['/', /Alan Chen/]]) {
   test(`deployed ${path} renders with working local JavaScript`, async ({
     page,
     request,
@@ -31,9 +28,7 @@ for (const [path, name] of [
     );
     expect(localScripts.length).toBeGreaterThan(0);
     for (const src of localScripts) {
-      if (path === '/teach/')
-        expect(new URL(src).pathname).toMatch(/^\/teach\//);
-      else expect(new URL(src).pathname).not.toMatch(/^\/teach\//);
+      expect(new URL(src).pathname).not.toMatch(/^\/(teach|tutoring)\//);
       const asset = await request.get(src);
       expect(asset.ok()).toBe(true);
       expect(asset.headers()['content-type']).toMatch(/javascript/);
