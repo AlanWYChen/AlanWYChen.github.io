@@ -1,0 +1,8 @@
+[submodule "apps/portfolio"]
+	path = apps/portfolio
+	url = https://github.com/AlanWYChen/swe-personal-site.git
+	branch = main
+[submodule "apps/teaching"]
+	path = apps/teaching
+	url = https://github.com/AlanWYChen/teaching-personal-site.git
+	branch = main

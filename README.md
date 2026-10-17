@@ -1,110 +1,141 @@
-# Alan Chen — Personal site
+# alanwychen.github.io — deployment
 
-A static React portfolio built with Vite. Content is grounded in the supplied resume, with a dark, typography-led introduction, company logos, categorized tech stack, contact links, and a downloadable PDF.
+This repository assembles two independent apps into one GitHub Pages deployment:
 
-## Run locally
+| URL                                 | Git submodule    | Source repository                                                              |
+| ----------------------------------- | ---------------- | ------------------------------------------------------------------------------ |
+| https://alanwychen.github.io/       | `apps/portfolio` | [swe-personal-site](https://github.com/AlanWYChen/swe-personal-site)           |
+| https://alanwychen.github.io/teach/ | `apps/teaching`  | [teaching-personal-site](https://github.com/AlanWYChen/teaching-personal-site) |
 
-Requires Node.js 22.12+ (Node 22 is specified in `.nvmrc`).
+The apps have separate dependencies, source, styles, assets, and builds. They do
+not share a React router, shell, navigation, or links to one another. Only their
+hosting origin and deployment are shared. Because they share an origin, browser
+storage and cookies are not security-isolated; use distinct keys if storage is
+introduced later.
+
+The teaching app currently contains a minimal placeholder. Its content and design
+will be implemented separately. The portfolio is preserved as-is, including Git
+history in its own repository.
+
+## Clone and build
+
+Requires Git and Node.js 22.12+ (Node 22 is specified in `.nvmrc`).
 
 ```sh
-npm ci
-npm run dev
-```
-
-Open the URL printed by Vite. To build and preview production output:
-
-```sh
+git clone --recurse-submodules https://github.com/AlanWYChen/AlanWYChen.github.io.git
+cd AlanWYChen.github.io
+npm run setup
 npm run build
+npm run verify
 npm run preview
 ```
 
-The complete static website is generated in `dist/`. No server, database, environment variables, or paid services are required. Fonts load from Google Fonts with local fallbacks.
+`setup` initializes the recorded submodule commits and runs `npm ci` independently
+in each app. The root package has no dependencies. Re-run setup after changing
+submodule revisions or dependency lockfiles.
 
-## Deploy to GitHub Pages (current host)
+`build` builds each app with its own Vite installation, with base `/` for the
+portfolio and `/teach/` for teaching. It copies the portfolio output to `dist/`
+and the teaching output to `dist/teach/`, then adds `.nojekyll`. A portfolio
+output named `teach` is rejected to prevent overwriting files. Only the root
+`dist/` is uploaded to Pages.
 
-The repository `AlanWYChen/AlanWYChen.github.io` publishes at https://alanwychen.github.io/.
+`verify` checks entry pages, asset paths and existence, and byte-for-byte
+preservation of the portfolio output during composition.
 
-In **Settings → Pages → Build and deployment**, keep **Source: GitHub Actions**.
-The workflow in `.github/workflows/build.yml` builds with `npm ci` and `npm run build`, uploads only `dist/`, and deploys on pushes to `main`. Pull requests run the build without publishing. You can also run the workflow manually from Actions.
+`preview` serves the assembled output at http://127.0.0.1:4173/ and
+http://127.0.0.1:4173/teach/. The `/teach` path redirects to `/teach/`, just as a
+static directory does on Pages. Unknown paths return 404; there is no shared SPA
+fallback.
 
-Do not publish the source directory: its `index.html` references JSX that requires Vite compilation. This is a user site at the domain root, so Vite's default `/` base and the existing root-relative asset links are correct.
+## Work on an app
 
-Official guide: https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
+App source belongs in its own repository. The submodule checkouts can be used
+for development, or each app can be cloned elsewhere and worked on independently.
 
-## Deploy to Cloudflare Pages
+```sh
+npm run dev:portfolio
+npm run dev:teaching
+```
 
-### Git integration (automatic deployments)
+Run the dev servers in separate terminals. Vite selects an available port; open
+`/` for the portfolio or `/teach/` for teaching. Each repository has its own README
+with editing and asset guidance.
 
-1. Push this project to a GitHub or GitLab repository.
-2. In Cloudflare, open **Workers & Pages**, choose **Create application**, then select **Pages** and connect the repository.
-3. Configure the build:
-   - Framework preset: **React (Vite)**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Root directory: leave blank when this project is at the repository root.
-   - Node version: `22` (use the `NODE_VERSION` build variable if needed).
-4. Deploy. Cloudflare assigns a `pages.dev` address; a custom domain is optional.
+Submodule initialization checks out a detached commit. Switch to `main` before
+editing an app, and commit/push inside that repository first:
 
-### Direct upload (no repository required)
+```sh
+git -C apps/portfolio switch main
+# Edit and verify the portfolio, then:
+git -C apps/portfolio add .
+git -C apps/portfolio commit -m "Update portfolio"
+git -C apps/portfolio push origin main
+git add apps/portfolio
+git commit -m "Publish updated portfolio"
+git push origin main
+```
 
-1. Run `npm run build`.
-2. In Cloudflare Pages, create a **Direct Upload** project.
-3. Upload the contents of `dist/` and deploy.
+Use `apps/teaching` for teaching changes. Keep app commits out of this repository;
+this repository records only their commit IDs plus build/deployment configuration.
 
-Do not upload the source folder or `node_modules`. Direct Upload and Git-integrated Pages projects have different workflows; choose Git integration initially if you want automatic builds from commits.
+## Pull the latest apps and publish
 
-Official documentation: https://developers.cloudflare.com/pages/framework-guides/deploy-a-react-site/
+Submodules pin exact commits so a deployment can be reproduced. Building or
+manually dispatching the deployment workflow uses those commits; it does not
+silently switch to newer app code. To pull both apps' latest `main` revisions:
 
-## Editing
+```sh
+npm run update:apps
+npm run setup
+npm run build
+npm run verify
+git add apps/portfolio apps/teaching
+git commit -m "Update deployed apps"
+git push origin main
+```
 
-- `src/main.jsx`: React entry point.
-- `src/App.jsx`: page sections and navigation behavior.
-- `src/data/portfolio.js`: companies, tech stack, contact profile, and icon mapping.
-- `src/components/CompanyCard.jsx`: animated company card interaction.
-- `src/styles.css`: layout, colors, typography, responsive behavior.
-- `public/alan-chen-resume.pdf`: replace to update the download. This is the original supplied PDF, including its contact details.
-- `index.html`: page title, description, and social metadata.
-- `public/favicon.svg`: site icon.
-- `public/_headers`: security headers applied by Cloudflare Pages.
+To update only one app:
 
-The company section lists roles without dates or performance metrics. Education is presented without attendance dates. Review the introductory copy before publishing to ensure it reflects your voice.
+```sh
+git submodule update --init --remote apps/teaching
+```
 
-The site includes visible focus states, a skip link, semantic sections, and reduced-motion support. Contact links include email, LinkedIn, GitHub, and an X placeholder; there is no form backend.
+Then run setup/build/verify and commit that submodule pointer. Start with clean
+app working trees before updating. Pushes to either app's `main` branch validate that app, then automatically
+commit its new submodule pointer here. The resulting push triggers the combined
+Pages deployment. Simultaneous app updates retry against the latest deployment
+commit, preserving both pointers. Obsolete app runs skip publication. Failed
+validation never updates a deployed pointer.
 
-## Logo sources
+Each app has a dedicated SSH deploy key with write access only to this deployment
+repository. The private key is stored as its `COMPOSITE_DEPLOY_KEY` Actions secret;
+the matching public key is registered under this repository's deploy keys.
+`COMPOSITE_AUTO_DEPLOY=true` is an Actions variable in each app repository that
+enables automatic publication. Disable that variable to pause automatic updates.
+Do not replace the deploy key with the app's default `GITHUB_TOKEN`: that token
+cannot write across repositories, and token-authored pushes do not trigger new
+workflows. The deploy keys are intended only for these validation-gated updates;
+protect app `main` branches if adding outside collaborators.
 
-Local copies of official company assets are stored in `public/logos/`:
+To rotate a key, create a fresh SSH key pair, add its public key as a writable
+deploy key here, replace the corresponding app's `COMPOSITE_DEPLOY_KEY` secret,
+then remove the previous public key. Neither private keys nor tokens belong in
+source control. Manual pointer updates above continue to work independently.
 
-- Scrawlr: https://corporate.scrawlr.com/assets/scrawlr-default-logo-CpUOVOM7.png
-- UKG: https://commons.wikimedia.org/wiki/File:UKG_(Ultimate_Kronos_Group)_logo.svg (earlier smile wordmark)
-- Metergy Solutions: https://cdn.prod.website-files.com/5f9c6d92db1af71866a9ca37/5fb679dc6fab3d4bf5b4be4d_Metergy_TM_Logo_w.svg (Metergy website)
+## GitHub Pages
 
-Company marks belong to their respective owners. UKG is rendered in monochrome on the dark background.
+Keep **Settings → Pages → Build and deployment → Source: GitHub Actions** in
+`AlanWYChen/AlanWYChen.github.io`. `.github/workflows/build.yml` recursively checks
+out both public submodules, installs and checks each app, builds and verifies the
+combined output, and deploys it on pushes to `main`. Pull requests validate without
+publishing. Manual workflow dispatch republishes the recorded commits.
 
-Visual reference: https://www.andy-hk.com/ — dark background, large name typography, cyan-blue accents, and generous spacing; original content and implementation.
+The app repositories validate and update their own submodule pointers here;
+this repository alone deploys Pages.
+If they are made private later, the deployment checkout needs an explicitly
+configured token that can read them.
 
-GitHub Actions builds the site on pushes and pull requests. Publishing uses GitHub Pages; Cloudflare remains an alternative.
-
-Technology logos are locally hosted Devicon SVGs; source URLs and the upstream license are in `public/logos/tech/`. Waterloo’s official reversed colour logo comes from https://uwaterloo.ca/brand/uw-logos/university-logos/all. Technology badges support hover and keyboard-focus highlighting.
-
-## Company introductions and Pick-pic
-
-Company introductions support hover, keyboard focus, tap activation, and Escape. Sources:
-
-- https://corporate.scrawlr.com/projects
-- https://www.ukg.com
-- https://www.metergysolutions.com
-
-UKG uses the earlier smile wordmark requested by the owner, sourced from https://commons.wikimedia.org/wiki/File:UKG_(Ultimate_Kronos_Group)_logo.svg. UKG announced its subsequent rebrand on October 1, 2025.
-
-The Pick-pic section uses the edited gallery screenshot with the marked word removed. The screenshots with member emails and other demo content are not included. Project copy describes the owner-confirmed project and visible functionality. Source code is linked at https://github.com/AlanWYChen/Pick-Pic.
-
-## Code formatting
-
-Run `npm run format` to format application source, configuration, and documentation, or `npm run format:check` to check formatting without changing files. The project skill pack lives in `.skills/production-engineering-skills/`.
-
-## Favicons and social previews
-
-`public/favicon.svg` is the compact white ac mark with a cyan dot. PNG/ICO fallbacks and the 180px Apple touch icon use the same source.
-
-`public/social-preview.jpg` is a 1200×630 capture of the landing page. Open Graph and large-image card metadata are included in the initial HTML so link crawlers can read them without running React. The absolute URLs and canonical URL target https://alanwychen.github.io/. Update them if moving to a custom domain. Refresh the capture when the landing design changes. Social platforms may cache previous previews; LinkedIn’s Post Inspector can request a refresh.
+Teaching assets must stay under `/teach/`; use Vite's `BASE_URL` conventions.
+If client-side routes are introduced, use hash routing or generate real HTML
+pages. GitHub Pages does not provide server-side SPA history rewrites.

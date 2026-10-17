@@ -18,13 +18,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run format:check
-      - run: npm run build
+          cache-dependency-path: |
+            apps/portfolio/package-lock.json
+            apps/teaching/package-lock.json
+      - name: Install independent app dependencies
+        run: npm run setup
+      - name: Check app formatting
+        run: |
+          npm --prefix apps/portfolio run format:check
+          npm --prefix apps/teaching run format:check
+      - name: Build both apps
+        run: npm run build
+      - name: Verify assembled site
+        run: npm run verify
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
