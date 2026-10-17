@@ -48,6 +48,20 @@ http://127.0.0.1:4173/teach/. The `/teach` path redirects to `/teach/`, just as 
 static directory does on Pages. Unknown paths return 404; there is no shared SPA
 fallback.
 
+## Development
+
+From this repository's root, start both apps with live updates:
+
+```sh
+npm run dev
+```
+
+Open http://127.0.0.1:5173/ for the portfolio and
+http://127.0.0.1:5173/teach/ for teaching. The command runs each app's own Vite
+server and proxies `/teach/` through the portfolio server, including hot updates.
+Press Ctrl+C to stop both. If port 5173 is busy, Vite selects the next available
+port; use the URLs printed in the terminal.
+
 ## Work on an app
 
 App source belongs in its own repository. The submodule checkouts can be used
@@ -58,7 +72,8 @@ npm run dev:portfolio
 npm run dev:teaching
 ```
 
-Run the dev servers in separate terminals. Vite selects an available port; open
+These commands start an individual app. When running both individually, use
+separate terminals. Vite selects an available port; open
 `/` for the portfolio or `/teach/` for teaching. Each repository has its own README
 with editing and asset guidance.
 

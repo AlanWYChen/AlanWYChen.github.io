@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "setup": "node scripts/setup.mjs",
+    "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
     "verify": "node scripts/verify.mjs",
     "update:apps": "git submodule update --init --recursive --remote",
