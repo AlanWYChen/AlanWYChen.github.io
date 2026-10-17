@@ -3,6 +3,12 @@ import { readFile, stat } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { extname, resolve, sep } from 'node:path';
 
+const portIndex = process.argv.indexOf('--port');
+const port = portIndex === -1 ? 4173 : Number(process.argv[portIndex + 1]);
+if (!Number.isInteger(port) || port < 1 || port > 65535) {
+  throw new Error('--port must be an integer between 1 and 65535');
+}
+
 const root = fileURLToPath(new URL('../dist/', import.meta.url));
 const types = {
   '.html': 'text/html; charset=utf-8',
@@ -39,7 +45,7 @@ createServer(async (request, response) => {
   } catch {
     response.writeHead(404).end('Not found');
   }
-}).listen(4173, '127.0.0.1', () => {
-  console.log('Portfolio: http://127.0.0.1:4173/');
-  console.log('Teaching: http://127.0.0.1:4173/teach/');
+}).listen(port, '127.0.0.1', () => {
+  console.log(`Portfolio: http://127.0.0.1:${port}/`);
+  console.log(`Teaching: http://127.0.0.1:${port}/teach/`);
 });

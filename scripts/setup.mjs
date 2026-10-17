@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const commands = [
   ['git', ['submodule', 'update', '--init', '--recursive']],
+  ['npm', ['ci']],
   ['npm', ['--prefix', 'apps/portfolio', 'ci']],
   ['npm', ['--prefix', 'apps/teaching', 'ci']],
 ];

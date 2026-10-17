@@ -25,6 +25,7 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: |
+            package-lock.json
             apps/portfolio/package-lock.json
             apps/teaching/package-lock.json
       - name: Install independent app dependencies
@@ -37,6 +38,20 @@ jobs:
         run: npm run build
       - name: Verify assembled site
         run: npm run verify
+      - name: Install smoke-test browser
+        run: npx playwright install --with-deps chromium
+      - name: Composite browser smoke tests
+        run: npm run test:smoke:composite
+      - name: Upload composite smoke-test failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-smoke-composite
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
@@ -49,6 +64,8 @@ jobs:
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     permissions:
       pages: write
@@ -60,3 +77,29 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  verify-production:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Verify deployed Pages site
+        env:
+          SMOKE_BASE_URL: ${{ needs.deploy.outputs.page_url }}
+        run: npm run smoke:production
+      - name: Upload production smoke-test failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-smoke-production
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7

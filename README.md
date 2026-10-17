@@ -31,7 +31,7 @@ npm run preview
 ```
 
 `setup` initializes the recorded submodule commits and runs `npm ci` independently
-in each app. The root package has no dependencies. Re-run setup after changing
+in each app. The root package contains browser-testing tools only; app dependencies remain separate. Re-run setup after changing
 submodule revisions or dependency lockfiles.
 
 `build` builds each app with its own Vite installation, with base `/` for the
@@ -178,12 +178,72 @@ secret come from the calling app. Pull requests run checks; only pushes to an
 app's `main` branch update the deployment repository. The root `publish.yml`
 then assembles both apps and publishes the single Pages artifact.
 
-## Checks
+## Browser smoke tests
 
-There are no unit-test or browser-test suites. The publishing checks cover
-formatting, production compilation, entry pages, asset paths, and preservation
-of portfolio files during assembly. Static apps still need these checks: a
-wrong base path or missing asset can break a successful-looking deployment.
-Browser checks for navigation, the resume download, responsive layout, and
-keyboard interaction are useful when those behaviors change; they are not
-currently automated. Add unit tests when nontrivial application logic appears.
+Requires Node.js 22.12+ and installed dependencies. On a fresh checkout:
+
+```sh
+npm run setup
+npx playwright install chromium
+```
+
+Run all app and composite checks from the root:
+
+```sh
+npm run smoke
+```
+
+This builds both production bundles, verifies assembly, runs the portfolio and
+teaching suites, then tests the assembled site. Playwright starts and stops its
+own previews on ports 4180–4182. It never reuses an existing dev server; free the
+affected test port if it is already occupied. `npm run dev` is independent.
+
+For an individual app, run `npm run smoke` inside its repository, or use
+`npm --prefix apps/portfolio run smoke` / `npm --prefix apps/teaching run smoke`.
+After building, `npm run test:smoke` runs all suites without rebuilding;
+`npm run test:smoke:composite` runs just the assembly's browser checks.
+
+App suites use Chromium at desktop (1440×900), mobile (390×844), and narrow
+(320×568) viewports. Portfolio checks cover navigation/fragment refresh, return to
+top, resume validity, link destinations, keyboard/focus behavior, company cards,
+lazy-loaded images, overflow, and reduced motion. Teaching checks cover its current
+placeholder at `/teach/`. Composite checks cover direct loads/refresh, path and
+asset separation, absence of cross-app links, redirects, and genuine 404s.
+
+Local browser checks do not retry failures. Reports are written to each tested
+repository's `playwright-report/`; traces and failure screenshots go to
+`test-results/`. Both directories are ignored by Git. To inspect a report:
+
+```sh
+npx playwright show-report
+# From the root, inspect the portfolio report instead:
+npx playwright show-report apps/portfolio/playwright-report
+```
+
+The shared app workflow runs each app's suite after compiling and before updating
+its deployed submodule pointer. Root `publish.yml` runs the composite suite before
+uploading the exact checked artifact. Failed jobs upload available reports,
+traces, and screenshots for seven days.
+
+After a successful Pages deployment, a separate job checks both live entry pages,
+their local JavaScript, and the resume PDF. This read-only production suite allows
+up to two retries for propagation; it reports failures without automatic rollback.
+Run it manually with:
+
+```sh
+npm run smoke:production
+# Or check an already-running local static preview:
+SMOKE_BASE_URL=http://127.0.0.1:4173/ npm run smoke:production
+```
+
+The production command never starts a server or deploys anything. Its report is
+written to `playwright-report/production/`, preserving the composite report.
+Browser tests use system-font fallbacks and do not depend on Google Fonts or visit outbound
+links. They catch uncaught application errors and failed local assets. They do
+not prove accessibility compliance or visual quality; manual screen-reader,
+contrast, zoom, and design review remain necessary when the related UI changes.
+There is no unit-test suite for static copy. Add focused unit/component tests as
+nontrivial application logic emerges.
+
+See [the smoke-test scope](docs/browser-smoke-test-plan.md) for acceptance criteria
+and the local skill guidance that informed this implementation.

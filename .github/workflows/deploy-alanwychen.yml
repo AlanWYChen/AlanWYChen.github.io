@@ -27,6 +27,20 @@ jobs:
       - run: npm ci
       - run: npm run format:check
       - run: npm run build
+      - name: Install smoke-test browser
+        run: npx playwright install --with-deps chromium
+      - name: Browser smoke tests
+        run: npm run test:smoke
+      - name: Upload smoke-test failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-smoke
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
 
   publish:
     needs: build

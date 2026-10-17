@@ -11,6 +11,13 @@
     "update:apps": "git submodule update --init --recursive --remote",
     "dev:portfolio": "npm --prefix apps/portfolio run dev",
     "dev:teaching": "npm --prefix apps/teaching run dev",
-    "preview": "node scripts/preview.mjs"
+    "preview": "node scripts/preview.mjs",
+    "test:smoke": "npm --prefix apps/portfolio run test:smoke && npm --prefix apps/teaching run test:smoke && npm run test:smoke:composite",
+    "smoke": "npm run build && npm run verify && npm run test:smoke",
+    "smoke:production": "playwright test --config playwright.production.config.js",
+    "test:smoke:composite": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1"
   }
 }

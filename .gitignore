@@ -5,3 +5,5 @@ dist/
 .env.*
 !.env.example
 .skills
+playwright-report/
+test-results/
