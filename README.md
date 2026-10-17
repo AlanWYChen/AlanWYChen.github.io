@@ -63,7 +63,7 @@ Run the dev servers in separate terminals. Vite selects an available port; open
 with editing and asset guidance.
 
 Submodule initialization checks out a detached commit. Switch to `main` before
-editing an app, and commit/push inside that repository first:
+editing an app, and commit/push inside that repository:
 
 ```sh
 git -C apps/portfolio switch main
@@ -71,9 +71,10 @@ git -C apps/portfolio switch main
 git -C apps/portfolio add .
 git -C apps/portfolio commit -m "Update portfolio"
 git -C apps/portfolio push origin main
-git add apps/portfolio
-git commit -m "Publish updated portfolio"
-git push origin main
+# App CI updates this deployment repository and triggers Pages automatically.
+# After it completes, synchronize your local deployment checkout:
+git pull --ff-only
+git submodule update --init --recursive
 ```
 
 Use `apps/teaching` for teaching changes. Keep app commits out of this repository;
