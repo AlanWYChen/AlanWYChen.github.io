@@ -127,7 +127,7 @@ source control. Manual pointer updates above continue to work independently.
 ## GitHub Pages
 
 Keep **Settings → Pages → Build and deployment → Source: GitHub Actions** in
-`AlanWYChen/AlanWYChen.github.io`. `.github/workflows/build.yml` recursively checks
+`AlanWYChen/AlanWYChen.github.io`. `.github/workflows/publish.yml` recursively checks
 out both public submodules, installs and checks each app, builds and verifies the
 combined output, and deploys it on pushes to `main`. Pull requests validate without
 publishing. Manual workflow dispatch republishes the recorded commits.
@@ -140,3 +140,35 @@ configured token that can read them.
 Teaching assets must stay under `/teach/`; use Vite's `BASE_URL` conventions.
 If client-side routes are introduced, use hash routing or generate real HTML
 pages. GitHub Pages does not provide server-side SPA history rewrites.
+
+## Shared app publishing workflow
+
+Each app has a small `.github/workflows/publish.yml` caller:
+
+```yaml
+jobs:
+  publish:
+    uses: AlanWYChen/AlanWYChen.github.io/.github/workflows/deploy-alanwychen.yml@main
+    with:
+      app-path: apps/portfolio # apps/teaching in the teaching repository
+    secrets:
+      COMPOSITE_DEPLOY_KEY: ${{ secrets.COMPOSITE_DEPLOY_KEY }}
+```
+
+The reusable `.github/workflows/deploy-alanwychen.yml` in this repository owns
+app dependency installation, formatting checks, compilation, and publication of
+the validated submodule commit. Changes to that shared workflow apply to both
+apps through `@main`. The GitHub event, repository, commit SHA, variables, and
+secret come from the calling app. Pull requests run checks; only pushes to an
+app's `main` branch update the deployment repository. The root `publish.yml`
+then assembles both apps and publishes the single Pages artifact.
+
+## Checks
+
+There are no unit-test or browser-test suites. The publishing checks cover
+formatting, production compilation, entry pages, asset paths, and preservation
+of portfolio files during assembly. Static apps still need these checks: a
+wrong base path or missing asset can break a successful-looking deployment.
+Browser checks for navigation, the resume download, responsive layout, and
+keyboard interaction are useful when those behaviors change; they are not
+currently automated. Add unit tests when nontrivial application logic appears.
