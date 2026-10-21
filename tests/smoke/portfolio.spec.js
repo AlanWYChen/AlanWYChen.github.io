@@ -137,6 +137,10 @@ test('resume and outbound links retain their intended destinations', async ({
     ['LinkedIn profile', 'https://www.linkedin.com/in/alan-wy-chen'],
     ['GitHub profile', 'https://github.com/AlanWYChen'],
     ['View source on GitHub', 'https://github.com/AlanWYChen/Pick-Pic'],
+    [
+      'View Stampede source on GitHub',
+      'https://github.com/AlanWYChen/Stampede',
+    ],
   ]) {
     await expect(page.getByRole('link', { name, exact: true })).toHaveAttribute(
       'href',
@@ -237,15 +241,50 @@ test('mouse hover expands a card without moving the education section', async ({
 test('tap expands a company card without overlapping later content', async ({
   page,
   isMobile,
+  context,
 }) => {
   test.skip(!isMobile, 'Touch interaction is covered on mobile viewports.');
-  await about(page).tap();
+  async function tapCardContent(locator) {
+    await locator.scrollIntoViewIfNeeded();
+    const bounds = await locator.boundingBox();
+    // A real tap hits the native button stretched over the visible card content.
+    await page.touchscreen.tap(
+      bounds.x + bounds.width / 2,
+      bounds.y + bounds.height / 2,
+    );
+  }
+  await tapCardContent(
+    company(page).getByRole('heading', { name: 'Scrawlr', exact: true }),
+  );
   await expect(about(page)).toHaveAttribute('aria-expanded', 'true');
   await expect(
     company(page).getByRole('link', { name: 'Visit company website' }),
   ).toBeVisible();
   await expectCardsAboveEducation(page);
   await expectNoOverflow(page);
+
+  const ukg = page.getByRole('article').filter({
+    has: page.getByRole('heading', { name: 'UKG', exact: true }),
+  });
+  await tapCardContent(ukg.getByRole('img', { name: 'UKG', exact: true }));
+  await expect(ukg.getByRole('button')).toHaveAttribute(
+    'aria-expanded',
+    'true',
+  );
+  await expect(about(page)).toHaveAttribute('aria-expanded', 'false');
+
+  // The expanded content remains above the tap target, including real links.
+  await context.route('https://www.ukg.com/', (route) =>
+    route.fulfill({
+      contentType: 'text/html',
+      body: '<title>Company website</title>',
+    }),
+  );
+  const opened = page.waitForEvent('popup');
+  await ukg.getByRole('link', { name: 'Visit company website' }).tap();
+  const popup = await opened;
+  await expect(popup).toHaveURL('https://www.ukg.com/');
+  await popup.close();
 });
 
 test('navigation and resume remain usable at the configured viewport', async ({

@@ -25,6 +25,8 @@ for (const tool of stacks.flatMap((stack) => stack.tools)) {
 }
 for (const value of [
   'Pick-pic',
+  'Stampede',
+  'https://github.com/AlanWYChen/Stampede',
   '/alan-chen-resume.pdf',
   'mailto:alan.ch3n@gmail.com',
   'https://github.com/AlanWYChen',

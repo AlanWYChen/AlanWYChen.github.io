@@ -198,7 +198,7 @@ export default function App() {
         <section
           id="pick-pic"
           className="side-project section wrap"
-          aria-labelledby="pick-pic-title"
+          aria-label="Side projects"
         >
           <div className="section-top">
             <p className="eyebrow">03 / ON THE SIDE</p>
@@ -250,6 +250,62 @@ export default function App() {
               <figcaption>Pick-pic · Shared photo gallery</figcaption>
             </figure>
           </div>
+          <article
+            id="stampede"
+            className="project-feature"
+            aria-labelledby="stampede-title"
+          >
+            <div className="project-copy">
+              <p className="project-type">NATIVE macOS PROJECT</p>
+              <h2 id="stampede-title">
+                Stampede<span>.</span>
+              </h2>
+              <p className="project-lead">
+                Your recent copies.
+                <br />
+                One menu away.
+              </p>
+              <p>
+                A native macOS menu bar app I built with Swift, AppKit, and
+                SwiftUI. Stampede keeps recent text and image copies within
+                reach, with encrypted local history that survives restarts.
+              </p>
+              <ul className="project-features">
+                <li>Text &amp; image history</li>
+                <li>AES-256-GCM encryption</li>
+                <li>Universal Clipboard support</li>
+                <li>History stays on your Mac</li>
+              </ul>
+              <p className="project-aside">
+                Built for the menu bar. Ready for your next paste.
+              </p>
+              <a
+                className="project-source"
+                href="https://github.com/AlanWYChen/Stampede"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="View Stampede source on GitHub"
+              >
+                <img
+                  src="/logos/social/github.svg"
+                  alt=""
+                  width="20"
+                  height="20"
+                />
+                View source on GitHub
+              </a>
+            </div>
+            <figure className="project-icon">
+              <img
+                src="/projects/stampede-icon.png"
+                alt="Stampede app icon"
+                width="256"
+                height="256"
+                loading="lazy"
+              />
+              <figcaption>Stampede · Clipboard history for macOS</figcaption>
+            </figure>
+          </article>
         </section>
 
         <section
