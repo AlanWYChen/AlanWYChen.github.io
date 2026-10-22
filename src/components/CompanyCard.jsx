@@ -36,6 +36,7 @@ export default function CompanyCard({
       </div>
       <h3>{company.name}</h3>
       <p className="role">{company.role}</p>
+      <p className="company-contribution">{company.contribution}</p>
       <button
         className="company-toggle"
         aria-expanded={open}

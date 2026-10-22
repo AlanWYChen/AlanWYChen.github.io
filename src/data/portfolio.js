@@ -5,8 +5,9 @@ export const companies = [
     logo: 'scrawlr.png',
     role: 'Software Engineer, Platform & Infrastructure',
     className: 'scrawlr',
+    contribution: 'Improved AWS infrastructure and redesigned CI/CD pipelines.',
     summary:
-      'I focused on platform engineering and cloud infrastructure. My work spanned AWS, CI/CD, and agentic workflows, with an emphasis on reliable deployments and production operations.',
+      'Implemented engineer-approved agentic incident remediation, reducing MTTR by over 80%. Created isolated QA environments, increasing QA throughput by 50%.',
     url: 'https://corporate.scrawlr.com/projects',
   },
   {
@@ -14,8 +15,9 @@ export const companies = [
     logo: 'ukg-smile.svg',
     role: 'Software Engineer, Mobile Platform',
     className: 'ukg',
+    contribution: 'Improved UKG Pro’s mobile platform and release reliability.',
     summary:
-      'I developed native and cross-platform mobile software for iOS and Android. My work strengthened platform reliability through release engineering, production observability, and improvements to shared mobile infrastructure.',
+      'Refactored shared iOS and Android components and added production observability with Splunk dashboards and actionable alerts. Rewrote release pipelines to prepare backup builds for rollback submission to the App Store and Play Store.',
     url: 'https://www.ukg.com',
   },
   {
@@ -23,8 +25,10 @@ export const companies = [
     logo: 'metergy.svg',
     role: 'Software Engineer',
     className: 'metergy',
+    contribution:
+      'Led end-to-end development of an offline-first IoT installation platform.',
     summary:
-      'I owned full-stack development from UI/UX to architecture. My work spanned resilient field applications, high-performance data pipelines, and automation for core business operations.',
+      'Built local persistence and cloud synchronization so field teams could work without connectivity. Replaced FTP polling and cron-based ingestion with device-initiated HTTP uploads, raising reliability from 70% to 99.9% across 10,000+ IoT meters.',
     url: 'https://www.metergysolutions.com',
   },
 ];

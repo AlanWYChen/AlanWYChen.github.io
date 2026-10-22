@@ -1354,3 +1354,28 @@ h1 {
     z-index: 2;
   }
 }
+
+/* Keep the main contribution visible and reserve room for expandable details. */
+.company {
+  display: flex;
+  flex-direction: column;
+  height: 580px;
+}
+.company > :not(.company-intro) {
+  flex-shrink: 0;
+}
+.company-contribution {
+  margin-top: 14px;
+  color: #f4f3ef;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.company-intro {
+  position: relative;
+  inset: auto;
+  flex: 1;
+  min-height: 0;
+}
+.company:not(.is-interactive) .company-intro {
+  flex: auto;
+}

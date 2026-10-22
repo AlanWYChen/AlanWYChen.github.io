@@ -15,7 +15,7 @@ for (const company of companies) {
     `Missing static experience: ${company.name}`,
   );
   assert(
-    body.includes(company.summary),
+    body.includes(company.summary) && body.includes(company.contribution),
     `Missing static role summary: ${company.name}`,
   );
 }

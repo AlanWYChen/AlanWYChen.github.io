@@ -208,6 +208,38 @@ test('critical controls have keyboard focus and collapsed card links are skipped
   ).toHaveCount(0);
 });
 
+test('contributions stay readable before a company card is expanded', async ({
+  page,
+}) => {
+  await page.mouse.move(0, 0);
+  for (const card of await page.locator('.company').all()) {
+    await expect(card.getByRole('button')).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+    const contribution = card.locator('.company-contribution');
+    await expect(contribution).toBeVisible();
+    const fits = await contribution.evaluate((element) => {
+      const text = element.getBoundingClientRect();
+      const card = element.closest('.company').getBoundingClientRect();
+      const button = element
+        .closest('.company')
+        .querySelector('button')
+        .getBoundingClientRect();
+      return (
+        text.left >= card.left &&
+        text.right <= card.right &&
+        text.bottom <= button.top &&
+        text.bottom < card.bottom
+      );
+    });
+    expect(
+      fits,
+      'Contribution must fit inside its card above the disclosure',
+    ).toBe(true);
+  }
+});
+
 test('mouse hover expands a card without moving the education section', async ({
   page,
   isMobile,

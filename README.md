@@ -71,7 +71,7 @@ GitHub suppresses new workflow runs for merges made using `GITHUB_TOKEN`. If an 
 
 `npm run build` runs Vite, then `scripts/prerender.mjs` renders the existing React components through `src/entry-server.jsx` into `dist/index.html`. The published page includes the full portfolio and JSON-LD identity data before JavaScript runs. The browser hydrates that markup; local Vite development still uses client rendering. No server runtime or additional dependencies are deployed.
 
-Role summaries and company website links are expanded without JavaScript. React enables the existing hover, keyboard, and tap behavior after hydration. Each card contains a two-sentence summary of the engineering focus at that company; update `src/data/portfolio.js` when those facts change. The placeholder X homepage link has been removed.
+Role summaries and company website links are expanded without JavaScript. React enables the existing hover, keyboard, and tap behavior after hydration. Each card keeps its main contribution visible by default, with supporting achievements and the company link expandable; update `src/data/portfolio.js` when those facts change. The placeholder X homepage link has been removed.
 
 `public/robots.txt` allows crawlers and advertises `public/sitemap.xml`, which lists the canonical SWE homepage. These files describe only this portfolio. The default crawler policy also permits training crawlers; search access and training access can be configured separately if desired. The schema links verified GitHub and LinkedIn identities and derives skills from the visible stack data.
 

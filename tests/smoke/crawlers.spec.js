@@ -14,8 +14,8 @@ test.describe('without JavaScript', () => {
       'Honours Bachelor of Computer Science, Co-op',
       'Agentic Workflows',
       'Model Context Protocol (MCP)',
-      'A mobile side project I built.',
-      'I focused on platform engineering and cloud infrastructure.',
+      'I built an Android app',
+      'Improved AWS infrastructure and redesigned CI/CD pipelines.',
     ]) {
       await expect(
         page.getByText(text, { exact: false }).first(),
@@ -56,7 +56,9 @@ test('raw HTTP response contains portfolio text, links, and identity', async ({
   expect(response.ok()).toBe(true);
   const html = await response.text();
   expect(html).toContain('<h1');
-  expect(html).toContain('platform engineering and cloud infrastructure');
+  expect(html).toContain(
+    'Improved AWS infrastructure and redesigned CI/CD pipelines.',
+  );
   expect(html).toContain('href="/alan-chen-resume.pdf"');
   const schema = JSON.parse(
     html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1],

@@ -4,7 +4,7 @@ export const pickPicProject = {
   type: 'MOBILE PROJECT',
   lead: ['A shared space for photos.', 'A little friendly voting.'],
   description:
-    'A mobile side project I built. Pick-pic brings shared photo collections and swipe-based voting together.',
+    'I built an Android app that helps groups choose their best photos from shared albums. Swipe-based voting feeds an ELO-style ranking system, turning individual preferences into ranked selections and downloadable “best-of” albums. Integration with Android’s native photo apps connects the shared gallery to users’ existing photo libraries.',
   features: ['Shared photo collections', 'Swipe to vote', 'Invite friends'],
   aside: 'Yes, we tested it with cat memes.',
   sourceUrl: 'https://github.com/AlanWYChen/Pick-Pic',
@@ -24,11 +24,11 @@ export const stampedeProject = {
   type: 'NATIVE macOS PROJECT',
   lead: ['Your recent copies.', 'One menu away.'],
   description:
-    'A native macOS menu bar app I built with Swift, AppKit, and SwiftUI. Stampede keeps recent text and image copies within reach, with encrypted local history that survives restarts.',
+    'I built a native macOS clipboard manager with Swift, AppKit, and SwiftUI. It keeps recent text and image copies accessible from the menu bar and preserves history across restarts using AES-256-GCM encryption with a key stored in macOS Keychain. Selected entries return to the system clipboard for normal pasting, including through Apple’s Universal Clipboard.',
   features: [
     'Text & image history',
     'AES-256-GCM encryption',
-    'Universal Clipboard support',
+    'Works with Apple’s Universal Clipboard',
     'History stays on your Mac',
   ],
   aside: 'Built for the menu bar. Ready for your next paste.',

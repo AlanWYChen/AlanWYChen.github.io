@@ -21,7 +21,9 @@ for (const [path, name] of [['/', /Alan Chen/]]) {
     expect(response.ok()).toBe(true);
     const html = await response.text();
     expect(html).toContain('<h1');
-    expect(html).toContain('platform engineering and cloud infrastructure');
+    expect(html).toContain(
+      'Improved AWS infrastructure and redesigned CI/CD pipelines.',
+    );
     expect(html).toContain('application/ld+json');
     await expect(page.getByRole('heading', { level: 1, name })).toBeVisible();
     const scripts = await page
