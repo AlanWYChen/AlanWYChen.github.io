@@ -7,7 +7,4 @@ dist/
 .skills
 playwright-report/
 test-results/
-
-# Independent local checkout and retained migration inputs
-/tutoring/
-/.migration-backup/
+.gitmodules

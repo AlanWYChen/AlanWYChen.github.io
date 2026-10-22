@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # Code dependency PRs require manual review and merging.
   - package-ecosystem: npm
     directory: /
     schedule:
@@ -7,6 +8,7 @@ updates:
       day: monday
       time: '09:00'
       timezone: America/Toronto
+  # Actions PRs (including major upgrades) are handled by dependabot-auto-merge.yml.
   - package-ecosystem: github-actions
     directory: /
     schedule:
