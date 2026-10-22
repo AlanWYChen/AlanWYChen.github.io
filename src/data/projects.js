@@ -38,8 +38,8 @@ export const stampedeProject = {
     className: 'project-icon',
     src: '/projects/stampede-icon.png',
     alt: 'Stampede app icon',
-    width: 256,
-    height: 256,
+    width: 1106,
+    height: 1106,
     caption: 'Stampede · Clipboard history for macOS',
   },
 };
