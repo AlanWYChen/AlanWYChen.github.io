@@ -15,9 +15,22 @@ export default function App() {
       setEnhanced(true);
       return;
     }
-    // Restore fragment position after the interactive card layout is enabled.
-    const target = document.getElementById(window.location.hash.slice(1));
-    target?.scrollIntoView({ behavior: 'instant' });
+    // Hydration changes card heights. Restore the fragment after that layout
+    // and again after the browser finishes restoring scroll on page load.
+    let frame;
+    const restoreFragment = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const target = document.getElementById(window.location.hash.slice(1));
+        target?.scrollIntoView({ behavior: 'instant' });
+      });
+    };
+    restoreFragment();
+    window.addEventListener('pageshow', restoreFragment);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('pageshow', restoreFragment);
+    };
   }, [enhanced]);
   function returnToTop(event) {
     event.preventDefault();
