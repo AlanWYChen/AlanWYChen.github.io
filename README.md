@@ -45,9 +45,11 @@ The workflow uses only the repository's `GITHUB_TOKEN`, with Pages and OIDC writ
 
 ## Editing
 
-- `src/App.jsx`: page sections and navigation behavior.
-- `src/components/CompanyCard.jsx`: company card interaction.
-- `src/data/portfolio.js`: portfolio content and icon mapping.
+- `src/App.jsx`: page composition, shared company selection, and navigation behavior.
+- `src/layout/`: site header and footer.
+- `src/sections/`: page-specific hero, experience, tech stack, projects, and contact layouts.
+- `src/components/`: reusable UI, including company cards, stack labels, tech chips, stack groups, project features, section labels, and links.
+- `src/data/`: portfolio content, tech icon mapping, and project descriptions and media.
 - `src/styles.css`: responsive styling.
 - `public/alan-chen-resume.pdf`: downloadable resume.
 - `index.html`: metadata and canonical URL.
